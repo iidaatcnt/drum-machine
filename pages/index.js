@@ -21,12 +21,12 @@ export default function DrumMachine() {
   const sequenceRef = useRef(null);
 
   const drumSounds = {
-    kick: { freq: 60, color: 'bg-red-500', key: 'Q' },
-    snare: { freq: 200, color: 'bg-blue-500', key: 'W' },
-    hihat: { freq: 8000, color: 'bg-yellow-500', key: 'E' },
-    openhat: { freq: 6000, color: 'bg-green-500', key: 'R' },
-    crash: { freq: 4000, color: 'bg-purple-500', key: 'T' },
-    perc: { freq: 800, color: 'bg-pink-500', key: 'Y' }
+    kick: { freq: 60, color: 'bg-red-500', key: 'Q', name: 'キック' },
+    snare: { freq: 200, color: 'bg-blue-500', key: 'W', name: 'スネア' },
+    hihat: { freq: 8000, color: 'bg-yellow-500', key: 'E', name: 'ハイハット' },
+    openhat: { freq: 6000, color: 'bg-green-500', key: 'R', name: 'オープンハット' },
+    crash: { freq: 4000, color: 'bg-purple-500', key: 'T', name: 'クラッシュ' },
+    perc: { freq: 800, color: 'bg-pink-500', key: 'Y', name: 'パーカッション' }
   };
 
   const initializeAudio = async () => {
@@ -232,8 +232,8 @@ export default function DrumMachine() {
   return (
     <>
       <Head>
-        <title>🥁 Beat Machine - Create Fresh Beats!</title>
-        <meta name="description" content="Interactive drum machine for creating beats" />
+        <title>🥁 ビートマシン - 新しいリズムを作ろう！</title>
+        <meta name="description" content="Webブラウザで使えるインタラクティブなドラムマシン。リアルタイムでビートを作成しよう！" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -241,7 +241,7 @@ export default function DrumMachine() {
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 p-4 md:p-8">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold text-white text-center mb-6 md:mb-8 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            🥁 Beat Machine 🎵
+            🥁 ビートマシン 🎵
           </h1>
           
           {!isInitialized && (
@@ -250,15 +250,15 @@ export default function DrumMachine() {
                 onClick={initializeAudio}
                 className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg text-lg md:text-xl font-bold transition-all duration-200 transform hover:scale-105"
               >
-                🎧 Start Audio Engine
+                🎧 オーディオエンジンを開始
               </button>
-              <p className="text-gray-300 mt-2 text-sm md:text-base">Click to enable audio and start making beats!</p>
+              <p className="text-gray-300 mt-2 text-sm md:text-base">クリックして音声を有効にし、ビート作りを始めましょう！</p>
             </div>
           )}
 
           {isInitialized && (
             <>
-              {/* Drum Pads */}
+              {/* ドラムパッド */}
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8">
                 {Object.entries(drumSounds).map(([drumType, config]) => (
                   <button
@@ -268,13 +268,13 @@ export default function DrumMachine() {
                                text-white p-4 md:p-6 rounded-xl text-lg md:text-xl font-bold transition-all duration-100 
                                shadow-lg hover:shadow-xl active:scale-95`}
                   >
-                    {drumType.toUpperCase()}
-                    <div className="text-xs md:text-sm mt-1 opacity-75">Press {config.key}</div>
+                    {config.name}
+                    <div className="text-xs md:text-sm mt-1 opacity-75">{config.key}キーを押す</div>
                   </button>
                 ))}
               </div>
 
-              {/* Controls */}
+              {/* コントロールパネル */}
               <div className="bg-gray-800 rounded-xl p-4 md:p-6 mb-4 md:mb-6">
                 <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-4">
                   <button
@@ -282,25 +282,25 @@ export default function DrumMachine() {
                     className={`${isPlaying ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} 
                                text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-bold transition-all duration-200 text-sm md:text-base`}
                   >
-                    {isPlaying ? '⏹️ Stop' : '▶️ Play'}
+                    {isPlaying ? '⏹️ 停止' : '▶️ 再生'}
                   </button>
                   
                   <button
                     onClick={clearPattern}
                     className="bg-gray-600 hover:bg-gray-700 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-bold transition-all duration-200 text-sm md:text-base"
                   >
-                    🗑️ Clear
+                    🗑️ クリア
                   </button>
                   
                   <button
                     onClick={randomPattern}
                     className="bg-purple-600 hover:bg-purple-700 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-bold transition-all duration-200 text-sm md:text-base"
                   >
-                    🎲 Random
+                    🎲 ランダム
                   </button>
                   
                   <div className="flex items-center gap-2">
-                    <label className="text-white font-bold text-sm md:text-base">BPM:</label>
+                    <label className="text-white font-bold text-sm md:text-base">テンポ:</label>
                     <input
                       type="range"
                       min="80"
@@ -314,15 +314,15 @@ export default function DrumMachine() {
                 </div>
               </div>
 
-              {/* Step Sequencer */}
+              {/* ステップシーケンサー */}
               <div className="bg-gray-800 rounded-xl p-4 md:p-6">
-                <h2 className="text-xl md:text-2xl font-bold text-white mb-4 text-center">Step Sequencer</h2>
+                <h2 className="text-xl md:text-2xl font-bold text-white mb-4 text-center">ステップシーケンサー</h2>
                 
                 {Object.entries(drumSounds).map(([drumType, config]) => (
                   <div key={drumType} className="mb-3 md:mb-4">
                     <div className="flex items-center gap-2 mb-2">
                       <div className={`${config.color} w-3 h-3 md:w-4 md:h-4 rounded`}></div>
-                      <span className="text-white font-bold w-12 md:w-16 text-sm md:text-base">{drumType.toUpperCase()}</span>
+                      <span className="text-white font-bold w-16 md:w-20 text-sm md:text-base">{config.name}</span>
                       <div className="grid grid-cols-16 gap-1 flex-1">
                         {pattern[drumType].map((active, stepIndex) => (
                           <button
@@ -348,8 +348,8 @@ export default function DrumMachine() {
               </div>
 
               <div className="text-center mt-4 md:mt-6 text-gray-400 text-sm md:text-base">
-                <p>Use keyboard shortcuts Q, W, E, R, T, Y to play drums</p>
-                <p>Click step sequencer buttons to create patterns</p>
+                <p>Q、W、E、R、T、Yキーでドラムを演奏できます</p>
+                <p>ステップシーケンサーのボタンをクリックしてパターンを作成しましょう</p>
               </div>
             </>
           )}
